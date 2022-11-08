@@ -1,6 +1,7 @@
 package human_beings;
 
 import comparator.StudentLastnameComparator;
+import create_add.CreateAddStudent;
 import exceptions.GroupOverflowException;
 import exceptions.NoSuchStudentException;
 
@@ -45,6 +46,21 @@ public class Group {
                 students[i] = student;
                 student.setGroupNumber(this.groupNumber);
                 System.out.println(student.getLastname() + " has been added");
+                break;
+            }
+            if (students[this.students.length - 1] != null) {
+                throw new GroupOverflowException();
+            }
+        }
+    }
+
+    public void addStudent() throws GroupOverflowException {
+        CreateAddStudent cas = new CreateAddStudent();
+        for (int i = 0; i < this.students.length; i++) {
+            if (students[i] == null) {
+                students[i] = cas.create();
+                students[i].setGroupNumber(this.groupNumber);
+                System.out.println(students[i].getLastname() + " has been added");
                 break;
             }
             if (students[this.students.length - 1] != null) {
