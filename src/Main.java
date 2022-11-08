@@ -19,7 +19,6 @@ public class Main {
         Student student9 = new Student("Jack", "Nicholson", Gender.MALE, 1423L);
         Student student10 = new Student("NAMELESS", "VOID", Gender.OTHER, 404L);
 
-
         Group group1 = new Group("402");
 
         try {
@@ -36,10 +35,13 @@ public class Main {
             group1.addStudent(student10);
 
         } catch (GroupOverflowException e) {
-            System.out.println("the group is full");
+            System.out.println("""
+
+                    The group is full
+                    """);
         }
 
-        System.out.println();
+//        System.out.println();
         for (Student st :
                 group1.getStudents()) {
             System.out.println(st);
@@ -49,23 +51,29 @@ public class Main {
 
         String searchLastname = "Vishchak";
         try {
-            System.out.println(group1.searchStudent(searchLastname));
+            System.out.println("Student search " + group1.searchStudent(searchLastname)+'\n');
         } catch (NoSuchStudentException e) {
-            System.err.println("There is no such a student " + searchLastname);
+            System.err.println("There is no such a student " + searchLastname+'\n');
         }
 
-        System.out.println();
+
 
         Long id = 123L;
         try {
             group1.deleteStudent(id);
             group1.deleteStudent(213L);
         } catch (NoSuchStudentException e) {
-            System.err.println("There is no student with id: " + id);
+            System.err.println("There is no student with id: " + id+'\n');
         }
 
         System.out.println();
 
-        System.out.println(group1);
+        String csv = student1.toCSVString();
+        System.out.println("Student to CSV " + csv+'\n');
+
+        Student studentFromCSV = new Student().fromCSVString(csv);
+        System.out.println("Student from CSV " + studentFromCSV.toString()+'\n');
+
+        System.out.println("Group in alphabetic order " + group1+'\n');
     }
 }
