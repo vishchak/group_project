@@ -49,18 +49,19 @@ public class Group {
                 break;
             }
             if (students[this.students.length - 1] != null) {
+                System.err.println(student.getLastname() + " is not added");
                 throw new GroupOverflowException();
             }
         }
     }
 
     public void addStudent() throws GroupOverflowException {
-        CreateAddStudent cas = new CreateAddStudent();
+
         for (int i = 0; i < this.students.length; i++) {
             if (students[i] == null) {
-                students[i] = cas.create();
+                students[i] = CreateAddStudent.create();
                 students[i].setGroupNumber(this.groupNumber);
-                System.out.println(students[i].getLastname() + " has been added");
+                System.out.println(students[i].getLastname() + " has been added" + '\n');
                 break;
             }
             if (students[this.students.length - 1] != null) {

@@ -10,9 +10,9 @@ import java.util.Scanner;
  * creates a student based on the inputted info;
  * use the clas's methods in "Group" class
  */
-public class CreateAddStudent implements CreateAddInterface {
-    @Override
-    public Student create() {
+public class CreateAddStudent {
+
+    public static Student create() {
         Scanner sc = new Scanner(System.in);
         Student student = new Student();
 
