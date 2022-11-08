@@ -1,16 +1,10 @@
 import exceptions.GroupOverflowException;
 import exceptions.NoSuchStudentException;
-import group.Gender;
-import group.Group;
-import group.Student;
+import enum_human.Gender;
+import human_beings.Group;
+import human_beings.Student;
 
 public class Main {
-    /**
-     * 1) Create a class that describes a person.
-     * 2) Create a student class based on it.
-     * 3) Create a Group class which contains an array of 10 objects of class Student. Implement add method, delete a student method and a find a student by last name method.
-     * if trying to add 11th student, create own exception and handle it.
-     */
     public static void main(String[] args) {
 
 
@@ -70,5 +64,9 @@ public class Main {
         } catch (NoSuchStudentException e) {
             System.err.println("There is no student with id: " + id);
         }
+
+        System.out.println();
+
+        System.out.println(group1);
     }
 }

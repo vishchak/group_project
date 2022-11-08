@@ -1,5 +1,11 @@
-package group;
+package human_beings;
 
+import enum_human.Gender;
+
+/**
+ * Create a student class based on Human.
+ * Define the toString() method for the group so that it lists the students in alphabetical order.
+ */
 public class Student extends Human {
     private String groupNumber;
     private Long id;

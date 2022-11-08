@@ -1,5 +1,10 @@
-package group;
+package human_beings;
 
+import enum_human.Gender;
+
+/**
+ * Create a class that describes a person.
+ */
 public class Human {
     private String name;
     private String lastname;
