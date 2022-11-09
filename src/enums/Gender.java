@@ -1,4 +1,4 @@
-package enum_human;
+package enums;
 
 public enum Gender {
     MALE, FEMALE, OTHER

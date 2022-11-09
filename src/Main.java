@@ -1,12 +1,15 @@
+import csv.GroupCSVFileStorage;
 import exceptions.GroupOverflowException;
+import enums.Gender;
 import exceptions.NoSuchStudentException;
-import enum_human.Gender;
 import human_beings.Group;
 import human_beings.Student;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
-
 
         Student student1 = new Student("Denis", "Vishchak", Gender.MALE, 123L);
         Student student2 = new Student("Bruce", "Willis", Gender.MALE, 1432L);
@@ -41,7 +44,6 @@ public class Main {
                     """);
         }
 
-//        System.out.println();
         for (Student st :
                 group1.getStudents()) {
             System.out.println(st);
@@ -51,11 +53,10 @@ public class Main {
 
         String searchLastname = "Vishchak";
         try {
-            System.out.println("Student search " + group1.searchStudent(searchLastname)+'\n');
+            System.out.println("Student search " + group1.searchStudent(searchLastname) + '\n');
         } catch (NoSuchStudentException e) {
-            System.err.println("There is no such a student " + searchLastname+'\n');
+            System.err.println("There is no such a student " + searchLastname + '\n');
         }
-
 
 
         Long id = 123L;
@@ -63,17 +64,37 @@ public class Main {
             group1.deleteStudent(id);
             group1.deleteStudent(213L);
         } catch (NoSuchStudentException e) {
-            System.err.println("There is no student with id: " + id+'\n');
+            System.err.println("There is no student with id: " + id + '\n');
         }
 
         System.out.println();
 
         String csv = student1.toCSVString();
-        System.out.println("Student to CSV " + csv+'\n');
+        System.out.println("Student to CSV " + csv + '\n');
 
         Student studentFromCSV = new Student().fromCSVString(csv);
-        System.out.println("Student from CSV " + studentFromCSV.toString()+'\n');
+        System.out.println("Student from CSV " + studentFromCSV.toString() + '\n');
 
-        System.out.println("Group in alphabetic order " + group1+'\n');
+        System.out.println("Lastnames in alphabetic order " + group1 + '\n');
+
+        GroupCSVFileStorage gfs = new GroupCSVFileStorage();
+
+        try {
+            gfs.saveGroupToSCV(group1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            File csv1 = new File("402.csv");
+            gfs.loadFGroupFromCSV(csv1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (GroupOverflowException e) {
+            System.out.println("""
+                    The group is full
+                    """);
+        }
+
     }
 }

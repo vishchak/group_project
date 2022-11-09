@@ -1,6 +1,6 @@
 package create_add;
 
-import enum_human.Gender;
+import enums.Gender;
 import human_beings.Student;
 
 import java.util.Scanner;

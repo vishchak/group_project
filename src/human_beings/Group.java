@@ -49,7 +49,7 @@ public class Group {
                 break;
             }
             if (students[this.students.length - 1] != null) {
-                System.err.println(student.getLastname() + " is not added");
+                System.err.println(student.getLastname() + " was not added");
                 throw new GroupOverflowException();
             }
         }
@@ -101,8 +101,7 @@ public class Group {
     @Override
     public String toString() {
         Group.sortStudentsByLastName(this.students);
-        return "Group[" +
-                "group=" + Arrays.toString(students) +
+        return " Group[ " + Arrays.toString(students) +
                 ", groupNumber='" + groupNumber + '\'' +
                 ']';
     }

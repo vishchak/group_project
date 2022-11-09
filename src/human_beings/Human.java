@@ -1,6 +1,6 @@
 package human_beings;
 
-import enum_human.Gender;
+import enums.Gender;
 
 /**
  * Create a class that describes a person.
@@ -45,10 +45,9 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human[" +
-                "name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", gender=" + gender +
-                ']';
+        return
+                "[name='" + name + '\'' +
+                        ", lastname='" + lastname + '\'' +
+                        ", gender=" + gender;
     }
 }

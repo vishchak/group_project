@@ -1,7 +1,7 @@
 package human_beings;
 
 import csv.CSVConverter;
-import enum_human.Gender;
+import enums.Gender;
 
 /**
  * Create a student class based on Human.
@@ -49,19 +49,19 @@ public class Student extends Human implements CSVConverter {
         Student student = new Student();
         String[] elements = csv.split(";");
 
-        student.setName(elements[0]);
-        student.setLastname(elements[1]);
-        student.setGender(Gender.valueOf(elements[2]));
-        student.setGroupNumber(elements[3]);
-        student.setId(Long.valueOf(elements[4]));
+            student.setName(elements[0]);
+            student.setLastname(elements[1]);
+            student.setGender(Gender.valueOf(elements[2]));
+            student.setGroupNumber(elements[3]);
+            student.setId(Long.valueOf(elements[4]));
 
         return student;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " Student[" +
-                "groupNumber='" + groupNumber + '\'' +
+        return super.toString() +
+                " groupNumber='" + groupNumber + '\'' +
                 ", id=" + id +
                 ']';
     }
