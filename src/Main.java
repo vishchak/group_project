@@ -96,5 +96,8 @@ public class Main {
                     """);
         }
 
+        File workFolder = new File("C:/Users/denis/Documents/Java/group_project");
+        System.out.println('\n' + gfs.findFileByGroupName(group1.getGroupNumber(), workFolder).getName());
+
     }
 }

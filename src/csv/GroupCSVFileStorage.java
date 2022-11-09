@@ -5,10 +5,12 @@ import human_beings.Group;
 import human_beings.Student;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * Refine a class describing a group of students, by adding the ability to save the group to a file;
  * Implement the reverse process. Those. read data about group from a file, and on their basis create an object of type group.
+ * Add search for a file with the group name in the working directory function;
  */
 public class GroupCSVFileStorage implements CSVConverter.GroupCSV {
 
@@ -55,6 +57,17 @@ public class GroupCSVFileStorage implements CSVConverter.GroupCSV {
 
     @Override
     public File findFileByGroupName(String groupName, File workFolder) {
+        if (workFolder.isDirectory()) {
+            File[] files = workFolder.listFiles();
+            if (Objects.requireNonNull(files).length > 0) {
+                for (File f :
+                        files) {
+                    String[] fileName = f.getName().split("\\.");
+                    if (groupName.equals(fileName[0]))
+                        return f;
+                }
+            }
+        }
         return null;
     }
 }
