@@ -99,6 +99,18 @@ public class Group {
         return null;
     }
 
+    public void ifEquals() throws NoSuchStudentException {
+        for (int i = 0; i < this.students.length; i++) {
+            for (int j = 0; j < this.students.length; j++) {
+                if (students[i] != null && students[j] != null) {
+                    if (students[i].equals(students[j]) && i != j) {
+                        deleteStudent(students[j].getId());
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

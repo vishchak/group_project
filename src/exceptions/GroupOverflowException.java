@@ -1,11 +1,8 @@
 package exceptions;
 
 public class GroupOverflowException extends Exception {
-    public GroupOverflowException() {
-        super();
-    }
-
-    public GroupOverflowException(String message) {
-        super(message);
+    @Override
+    public String getMessage() {
+        return "the group is overflown:  ";
     }
 }

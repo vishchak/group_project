@@ -1,11 +1,8 @@
 package exceptions;
 
 public class NoSuchStudentException extends Exception {
-    public NoSuchStudentException() {
-        super();
-    }
-
-    public NoSuchStudentException(String message) {
-        super(message);
+    @Override
+    public String getMessage() {
+        return "there is no such a student: ";
     }
 }

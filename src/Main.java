@@ -13,7 +13,7 @@ public class Main {
 
         Student student1 = new Student("Denis", "Vishchak", Gender.MALE, 123L);
         Student student2 = new Student("Bruce", "Willis", Gender.MALE, 1432L);
-        Student student3 = new Student("John", "Travolta", Gender.FEMALE, 213L);
+        Student student3 = new Student("Mark", "Wahlberg", Gender.MALE, 231L);
         Student student4 = new Student("Mark", "Wahlberg", Gender.MALE, 231L);
         Student student5 = new Student("Brad", "Pitt", Gender.MALE, 312L);
         Student student6 = new Student("Gwyneth", "Paltrow", Gender.FEMALE, 321L);
@@ -36,12 +36,8 @@ public class Main {
             group1.addStudent(student9);
             group1.addStudent(student2);
             group1.addStudent(student10);
-
         } catch (GroupOverflowException e) {
-            System.out.println("""
-
-                    The group is full
-                    """);
+            System.err.println(e.getMessage());
         }
 
         for (Student st :
@@ -55,7 +51,7 @@ public class Main {
         try {
             System.out.println("Student search " + group1.searchStudent(searchLastname) + '\n');
         } catch (NoSuchStudentException e) {
-            System.err.println("There is no such a student " + searchLastname + '\n');
+            System.err.println(e.getMessage());
         }
 
 
@@ -64,7 +60,7 @@ public class Main {
             group1.deleteStudent(id);
             group1.deleteStudent(213L);
         } catch (NoSuchStudentException e) {
-            System.err.println("There is no student with id: " + id + '\n');
+            System.err.println(e.getMessage() + id);
         }
 
         System.out.println();
@@ -91,13 +87,16 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (GroupOverflowException e) {
-            System.out.println("""
-                    The group is full
-                    """);
+            System.err.println(e.getMessage());
         }
 
         File workFolder = new File("C:/Users/denis/Documents/Java/group_project");
         System.out.println('\n' + gfs.findFileByGroupName(group1.getGroupNumber(), workFolder).getName());
 
+        try {
+            group1.ifEquals();
+        } catch (NoSuchStudentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
