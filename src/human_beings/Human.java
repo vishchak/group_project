@@ -2,6 +2,8 @@ package human_beings;
 
 import enums.Gender;
 
+import java.util.Objects;
+
 /**
  * Create a class that describes a person.
  */
@@ -41,6 +43,19 @@ public class Human {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Human human = (Human) o;
+        return Objects.equals(name, human.name) && Objects.equals(lastname, human.lastname) && gender == human.gender;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lastname, gender);
     }
 
     @Override

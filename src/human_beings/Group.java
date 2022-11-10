@@ -7,6 +7,7 @@ import exceptions.NoSuchStudentException;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * Create a Group class which contains an array of 10 objects of class Student. Implement add method, delete a student method and a find a student by last name method.
@@ -14,6 +15,10 @@ import java.util.Comparator;
  * Define the toString() method for the group so that it lists the students in alphabetical order.
  */
 public class Group {
+    public static void sortStudentsByLastName(Student[] students) {
+        Arrays.sort(students, Comparator.nullsLast(new StudentLastnameComparator()));
+    }
+
     private Student[] students = new Student[10];
     private String groupNumber;
 
@@ -94,8 +99,19 @@ public class Group {
         return null;
     }
 
-    public static void sortStudentsByLastName(Student[] students) {
-        Arrays.sort(students, Comparator.nullsLast(new StudentLastnameComparator()));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return Arrays.equals(students, group.students) && Objects.equals(groupNumber, group.groupNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(groupNumber);
+        result = 31 * result + Arrays.hashCode(students);
+        return result;
     }
 
     @Override
