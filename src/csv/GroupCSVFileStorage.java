@@ -5,6 +5,7 @@ import human_beings.Group;
 import human_beings.Student;
 
 import java.io.*;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,7 +17,7 @@ public class GroupCSVFileStorage implements CSVConverter.GroupCSV {
 
     @Override
     public void saveGroupToSCV(Group group) throws IOException {
-        Student[] students = group.getStudents();
+        List<Student> students = group.getStudents();
         StringBuilder sb = new StringBuilder();
         for (Student st :
                 students) {

@@ -5,9 +5,7 @@ import create_add.CreateAddStudent;
 import exceptions.GroupOverflowException;
 import exceptions.NoSuchStudentException;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Create a Group class which contains an array of 10 objects of class Student. Implement add method, delete a student method and a find a student by last name method.
@@ -15,11 +13,11 @@ import java.util.Objects;
  * Define the toString() method for the group so that it lists the students in alphabetical order.
  */
 public class Group {
-    public static void sortStudentsByLastName(Student[] students) {
-        Arrays.sort(students, Comparator.nullsLast(new StudentLastnameComparator()));
+    public static void sortStudentsByLastName(List<Student> students) {
+        students.sort(Comparator.nullsLast(new StudentLastnameComparator()));
     }
 
-    private Student[] students = new Student[10];
+    private List<Student> students = new ArrayList<>(10);
     private String groupNumber;
 
     public Group() {
@@ -29,11 +27,11 @@ public class Group {
         this.groupNumber = groupNumber;
     }
 
-    public Student[] getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Student[] students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
@@ -46,52 +44,44 @@ public class Group {
     }
 
     public void addStudent(Student student) throws GroupOverflowException {
-        for (int i = 0; i < this.students.length; i++) {
-            if (students[i] == null) {
-                students[i] = student;
-                student.setGroupNumber(this.groupNumber);
-                System.out.println(student.getLastname() + " has been added");
-                break;
-            }
-            if (students[this.students.length - 1] != null) {
-                System.err.println(student.getLastname() + " was not added");
-                throw new GroupOverflowException();
-            }
+        if (students.size() == 10) {
+            System.err.println(student.getLastname() + " was not added");
+            throw new GroupOverflowException();
         }
+        students.add(student);
+        student.setGroupNumber(this.groupNumber);
+        System.out.println(student.getLastname() + " has been added");
     }
 
     public void addStudent() throws GroupOverflowException {
-
-        for (int i = 0; i < this.students.length; i++) {
-            if (students[i] == null) {
-                students[i] = CreateAddStudent.create();
-                students[i].setGroupNumber(this.groupNumber);
-                System.out.println(students[i].getLastname() + " has been added" + '\n');
-                break;
-            }
-            if (students[this.students.length - 1] != null) {
-                throw new GroupOverflowException();
-            }
+        if (students.size() == 10) {
+            throw new GroupOverflowException();
         }
+        Student student = CreateAddStudent.create();
+        student.setGroupNumber(this.groupNumber);
+        students.add(student);
+        System.out.println(student.getLastname() + " has been added" + '\n');
     }
 
+
     public void deleteStudent(Long id) throws NoSuchStudentException {
-        int count = 0;
-        for (int i = 0; i < this.students.length; i++) {
-            if (students[i] == null) {
-                continue;
-            }
-            if (students[i].getId().equals(id)) {
-                System.out.println(students[i].getLastname() + " has been deleted");
-                students[i] = null;
-                count++;
+        List<Student> toRemove = new ArrayList<>();
+        for (Student st :
+                students) {
+            if (st.getId().equals(id)) {
+                toRemove.add(st);
             }
         }
-        if (count == 0) throw new NoSuchStudentException();
+        if (toRemove.isEmpty()) throw new NoSuchStudentException();
+        this.students.removeAll(toRemove);
     }
 
     public Student searchStudent(String lastName) throws NoSuchStudentException {
-        for (Student student : this.students) {
+        if (students.isEmpty()) {
+            throw new NoSuchStudentException();
+        }
+        for (Student student :
+                students) {
             if (student.getLastname().equals(lastName)) {
                 return student;
             } else throw new NoSuchStudentException();
@@ -100,15 +90,16 @@ public class Group {
     }
 
     public void ifEquals() throws NoSuchStudentException {
-        for (int i = 0; i < this.students.length; i++) {
-            for (int j = 0; j < this.students.length; j++) {
-                if (students[i] != null && students[j] != null) {
-                    if (students[i].equals(students[j]) && i != j) {
-                        deleteStudent(students[j].getId());
-                    }
-                }
+        List<Student> newList = new ArrayList<>();
+        for (Student st :
+                students) {
+            if (!newList.contains(st)) {
+                newList.add(st);
             }
         }
+        students.clear();
+        students.addAll(newList);
+        System.out.println(newList);
     }
 
     @Override
@@ -116,20 +107,18 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return Arrays.equals(students, group.students) && Objects.equals(groupNumber, group.groupNumber);
+        return Objects.equals(students, group.students) && Objects.equals(groupNumber, group.groupNumber);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(groupNumber);
-        result = 31 * result + Arrays.hashCode(students);
-        return result;
+        return Objects.hash(students, groupNumber);
     }
 
     @Override
     public String toString() {
         Group.sortStudentsByLastName(this.students);
-        return " Group[ " + Arrays.toString(students) +
+        return " Group[ " + students.toString() +
                 ", groupNumber='" + groupNumber + '\'' +
                 ']';
     }
