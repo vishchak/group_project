@@ -8,12 +8,12 @@ import java.io.IOException;
 
 public interface CSVConverter {
 
-    interface GroupCSV {
-        void saveGroupToSCV(human_beings.Group gr) throws IOException;
+    interface FileCSV<T> {
+        void saveToFileSCV(T t) throws IOException;
 
-        human_beings.Group loadFGroupFromCSV(File fileSCV) throws IOException, GroupOverflowException;
+        T loadFromFileCSV(File fileSCV) throws IOException, GroupOverflowException;
 
-        File findFileByGroupName(String groupName, File workFolder);
+        File findFileByName(String fileName, File workFolder);
     }
 
     String toCSVString();

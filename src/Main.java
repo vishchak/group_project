@@ -1,4 +1,4 @@
-import csv.GroupCSVFileStorage;
+import csv.FileCSVFileStorage;
 import exceptions.GroupOverflowException;
 import enums.Gender;
 import exceptions.NoSuchStudentException;
@@ -73,17 +73,17 @@ public class Main {
 
         System.out.println("Lastnames in alphabetic order " + group1 + '\n');
 
-        GroupCSVFileStorage gfs = new GroupCSVFileStorage();
+        FileCSVFileStorage gfs = new FileCSVFileStorage();
 
         try {
-            gfs.saveGroupToSCV(group1);
+            gfs.saveToFileSCV(group1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         try {
             File csv1 = new File("402.csv");
-            gfs.loadFGroupFromCSV(csv1);
+            gfs.loadFromFileCSV(csv1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (GroupOverflowException e) {
@@ -91,7 +91,7 @@ public class Main {
         }
 
         File workFolder = new File("C:/Users/denis/Documents/Java/group_project");
-        System.out.println('\n' + gfs.findFileByGroupName(group1.getGroupNumber(), workFolder).getName());
+        System.out.println('\n' + gfs.findFileByName(group1.getGroupNumber(), workFolder).getName());
 
         try {
             group1.ifEquals();

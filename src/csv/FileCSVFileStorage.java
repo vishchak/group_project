@@ -13,10 +13,10 @@ import java.util.Objects;
  * Implement the reverse process. Those. read data about group from a file, and on their basis create an object of type group.
  * Add search for a file with the group name in the working directory function;
  */
-public class GroupCSVFileStorage implements CSVConverter.GroupCSV {
+public class FileCSVFileStorage implements CSVConverter.FileCSV<Group> {
 
     @Override
-    public void saveGroupToSCV(Group group) throws IOException {
+    public void saveToFileSCV(Group group) throws IOException {
         List<Student> students = group.getStudents();
         StringBuilder sb = new StringBuilder();
         for (Student st :
@@ -32,7 +32,7 @@ public class GroupCSVFileStorage implements CSVConverter.GroupCSV {
     }
 
     @Override
-    public Group loadFGroupFromCSV(File fileSCV) throws IOException, GroupOverflowException {
+    public Group loadFromFileCSV(File fileSCV) throws IOException, GroupOverflowException {
         Group group = new Group();
 
         if (fileSCV.exists()) {
@@ -57,7 +57,7 @@ public class GroupCSVFileStorage implements CSVConverter.GroupCSV {
 
 
     @Override
-    public File findFileByGroupName(String groupName, File workFolder) {
+    public File findFileByName(String groupName, File workFolder) {
         if (workFolder.isDirectory()) {
             File[] files = workFolder.listFiles();
             if (Objects.requireNonNull(files).length > 0) {
