@@ -55,12 +55,10 @@ public class Main {
         }
 
 
-        Long id = 123L;
         try {
-            group1.deleteStudent(id);
-            group1.deleteStudent(213L);
+            group1.deleteStudent(123L);
         } catch (NoSuchStudentException e) {
-            System.err.println(e.getMessage() + id);
+            System.err.println(e.getMessage());
         }
 
         System.out.println();

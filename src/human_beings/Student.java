@@ -37,6 +37,19 @@ public class Student extends Human implements CSVConverter {
         this.id = id;
     }
 
+    public static int compare(Student o1, Student o2) {
+
+        String lastname1 = o1.getLastname();
+        String lastname2 = o2.getLastname();
+
+        if (lastname1.compareTo(lastname2) > 0) {
+            return 1;
+        } else if (lastname1.compareTo(lastname2) == 0) {
+            return 0;
+        }
+        return -1;
+    }
+
     @Override
     public String toCSVString() {
         return super.getName() + ";" +

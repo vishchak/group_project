@@ -1,6 +1,5 @@
 package human_beings;
 
-import comparator.StudentLastnameComparator;
 import create_add.CreateAddStudent;
 import exceptions.GroupOverflowException;
 import exceptions.NoSuchStudentException;
@@ -13,10 +12,6 @@ import java.util.*;
  * Define the toString() method for the group so that it lists the students in alphabetical order.
  */
 public class Group {
-    public static void sortStudentsByLastName(List<Student> students) {
-        students.sort(Comparator.nullsLast(new StudentLastnameComparator()));
-    }
-
     private List<Student> students = new ArrayList<>(10);
     private String groupNumber;
 
@@ -117,7 +112,7 @@ public class Group {
 
     @Override
     public String toString() {
-        Group.sortStudentsByLastName(this.students);
+        this.students.sort(Student::compare);
         return " Group[ " + students.toString() +
                 ", groupNumber='" + groupNumber + '\'' +
                 ']';
